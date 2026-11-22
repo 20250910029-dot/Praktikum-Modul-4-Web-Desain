@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Alumni</title>
+
+    <style>
+        /* Pengaturan dasar */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+
+        /* Header */
+        header {
+            background-color: #176B87;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* Menu navigasi */
+        nav {
+            background-color: #053B50;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        /* Konten utama */
+        .container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #176B87;
+        }
+
+        /* Form input */
+        .form-alumni {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #176B87;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #053B50;
+        }
+
+        /* Pencarian */
+        .search {
+            margin-bottom: 20px;
+        }
+
+        /* Daftar profil alumni */
+        .daftar-alumni {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        /* Efek hover profil alumni */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            color: #176B87;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #053B50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>WEBSITE ALUMNI</h1>
+        <p>Informasi dan Data Alumni</p>
+    </header>
+
+    <!-- Navigasi -->
+    <nav>
+        <a href="#">Beranda</a>
+        <a href="#tambah">Tambah Alumni</a>
+        <a href="#daftar">Data Alumni</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Form Tambah Alumni -->
+        <section id="tambah" class="form-alumni">
+            <h2>Tambah Data Alumni</h2>
+
+            <form id="formAlumni">
+                <input type="text" id="nama"
+                    placeholder="Masukkan Nama Alumni" required>
+
+                <input type="text" id="jurusan"
+                    placeholder="Masukkan Jurusan" required>
+
+                <input type="number" id="tahun"
+                    placeholder="Tahun Lulus" required>
+
+                <button type="submit">Tambah Alumni</button>
+            </form>
+        </section>
+
+        <!-- Pencarian Alumni -->
+        <section id="daftar">
+            <h2>Daftar Alumni</h2>
+
+            <input type="text" id="pencarian"
+                class="search"
+                placeholder="Cari berdasarkan nama atau jurusan...">
+
+            <!-- Tempat menampilkan data alumni -->
+            <div class="daftar-alumni" id="daftarAlumni">
+
+                <div class="card">
+                    <h3>Andi Saputra</h3>
+                    <p>Jurusan: Sistem Informasi</p>
+                    <p>Tahun Lulus: 2023</p>
+                </div>
+
+                <div class="card">
+                    <h3>Siti Aminah</h3>
+                    <p>Jurusan: Teknik Informatika</p>
+                    <p>Tahun Lulus: 2024</p>
+                </div>
+
+                <div class="card">
+                    <h3>Budi Santoso</h3>
+                    <p>Jurusan: Desain Komunikassi Visual</p>
+                    <p>Tahun Lulus: 2022</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Website Alumni</p>
+    </footer>
+
+    <script>
+
+        // Mengambil elemen HTML
+        const form = document.getElementById("formAlumni");
+        const daftar = document.getElementById("daftarAlumni");
+        const pencarian = document.getElementById("pencarian");
+
+        // Fitur menambahkan alumni
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let nama = document.getElementById("nama").value;
+            let jurusan = document.getElementById("jurusan").value;
+            let tahun = document.getElementById("tahun").value;
+
+            let card = document.createElement("div");
+
+            card.className = "card";
+
+            card.innerHTML = `
+                <h3>${nama}</h3>
+                <p>Jurusan: ${jurusan}</p>
+                <p>Tahun Lulus: ${tahun}</p>
+            `;
+
+            daftar.appendChild(card);
+
+            form.reset();
+
+        });
+
+        // Fitur pencarian alumni
+        pencarian.addEventListener("keyup", function() {
+
+            let kataKunci = pencarian.value.toLowerCase();
+
+            let alumni = daftar.getElementsByClassName("card");
+
+            for (let i = 0; i < alumni.length; i++) {
+
+                let isi = alumni[i].innerText.toLowerCase();
+
+                if (isi.includes(kataKunci)) {
+                    alumni[i].style.display = "";
+                } else {
+                    alumni[i].style.display = "none";
+                }
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
